@@ -6,9 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    
 </head>
 <body>
+
+     <form id="popup-form">
+        <label>Title</label>
+        <input id="title" type="text">
+        <br>
+
+        <label>Author</label>
+        <input id= "author" type="text">
+        <br>
+
+        <label># of Pages</label>
+        <input id= "pages" type="text">
+        <br>
+
+        <label>Have you read this book?</label> <!-- turn into check box with yes or no answers-->
+        
+        <select name="did-you-read-it" id="did-you-read-it">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        <br> 
+
+        <button type="submit" id="add-book-to-library">Add Book to Library</button>
+        <button id="cancel-add-book">Cancel</button>
+    </form>
+    
     <div id="container">
         <div id="header">Library App</div>
         <div id="content">
@@ -19,5 +45,7 @@
             <div id="book-container"></div>
         </div>
     </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>

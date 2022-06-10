@@ -21,13 +21,11 @@ function Book(title, author, pages, read){
 function makeFormVisible(){ 
 
     if(popupForm.style.visibility == "visible"){
-        console.log("hit the submit button")
         popupForm.style.visibility = "hidden";
         return;
     }
     let cancel = document.getElementById("cancel-add-book");
     cancel.addEventListener("click", ()=>{
-        console.log("test");
         popupForm.style.visibility = "hidden";
         return;
     })
@@ -56,16 +54,19 @@ function addBookToLibrary(){
         //read : document.getElementById("did-you-read-it").value
     }
     myLibrary.push(newObject);
-
-    // look at code below to begin the for loop process
-    /*for(let i = 0; i<myLibrary.length; i++){
-        let createBook = document.createElement("div")
-        createBook.setAttribute("class", "created-book")
-        createBook.setAttribute("id", `${i}`)
-        
-        
-    }*/
+    console.log(...myLibrary);
  
+    for(let i = 0; i<myLibrary.length; i++){
+        console.log("in the for loop");
+        if(document.getElementById(`book-${i}`)){
+            console.log("it already exists");
+            continue
+        }
+        let createBook = document.createElement("div");
+        createBook.setAttribute("class", "created-book");
+        createBook.setAttribute("id", `book-${i}`);
+        bookContainer.appendChild(createBook);
+    }
 
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";

@@ -5,48 +5,70 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    
+    <link rel="stylesheet" href="style.css"> 
+    <script src="script.js"></script>
 </head>
 <body>
+    <div id="flex-container">
+        <div id="background-image">
+            <!--needs to have an opaque title outlining the point in one word-->
+            <div id="background-title">Spice Collective</div>
+        </div>
 
-     <form id="popup-form">
-        <label>Title</label>
-        <input id="title" type="text" required>
-        <br>
+        <div id="content"> <!--needs to be a flex container set up to column-->
 
-        <label>Author</label>
-        <input id= "author" type="text" required>
-        <br>
+            <div id="form-description">
+                <p>Sign up to join Spice collective and begin receiving<br> your curated meal receipe box today!</p>
+            </div>
 
-        <label># of Pages</label>
-        <input id= "pages" type="number" min="1" required>
-        <br>
+            <div id="inputs">
+                <form action="" method="post">
+                   
+                    <!--1. add validations for all input
+                        2. add in :focus for passwords
+                        -->
+                    <div id="flex-container-form">
+                        <div id=form-left>
+                            <label for="">FIRST NAME</label>
+                            <input type="text" id="first-name" name="first-name" title="Enter your first name" minlength="1" pattern="([A-Za-z]+)" required>
+                            <span id="first-name-message"></span>
 
-        <label>Have you read this book?</label> <!-- turn into check box with yes or no answers-->
-        
-        <select name="did-you-read-it" id="did-you-read-it" required>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-        <br> 
+                            <label for="">EMAIL</label>
+                            <input type="email" id="email" name="email" title="Enter your email address" placeholder="youremail@website.org" required>
+                            <span id="email-message"></span>
 
-        <!--Clicking the add book button does not check if the required inputs were filled out. Look back at sign up form validation for code-->
-        <button type="button" id="add-book-to-library">Add Book to Library</button>
-        <button id="cancel-add-book">Cancel</button>
-    </form>
-    
-    <div id="container">
-        <div id="header">Library App</div>
-        <div id="content">
-            <div id="add-book-container">
-                <button id="add-book">+ Add Book</button>
+                            <label for="">PASSWORD</label>
+                            <input type="password" id="password" name="password"  pattern = "([A-Za-z0-9!@#$%^&*?]+)" title="Please enter a valid password between 8 and 16 characters using Alpha numeric and special characters (!@#$%^&*?) " minlength="8" maxlength="16" required>
+                            <span id="password-message"></span>
+                        </div>
+                      
+                        <div id="form-right"> 
+                            <label for="">LAST NAME</label>
+                            <input type="text" id="last-name" name="last-name" title="Please enter a valid last name" minlength="1" pattern="([A-Za-z]+)" required>
+                            <span id="last-name-message"></span>
+
+                            <label for="">PHONE NUMBER</label>
+                            <input type="text" id="phone-number" name="phone-number" placeholder="1234567890" title="Please enter a valid phone number without spaces dashes or country code xxxyyyzzzz" minlength="10" maxlength="10" pattern="(\[0-9]+)" required >
+                            <span id="phone-number-message"></span>
+
+                            <label for="">CONFIRM PASSWORD</label>
+                            <input type="password" id="confirm-password" name="confirm-password" pattern = "([A-Za-z0-9!@#$%^&*?]+)" title="Confirm your password" minlength="8" maxlength="16"  required>
+                            <span id="confirm-password-message"></span>
+
+                        </div>
+
+                    </div>
+                    
+                    
+                </form>
             </div>
             
-            <div id="book-container"></div>
+            <div id="submit"> 
+                <br><br><button type="submit">Create Account</button>
+                <br><p>Already have an account?<a> Log in</a></p>
+            </div>
         </div>
+
     </div>
-    
-    <script src="script.js"></script>
 </body>
 </html>

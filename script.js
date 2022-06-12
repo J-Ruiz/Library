@@ -1,3 +1,4 @@
+
 //variables to target specific components 
 let bookContainer = document.getElementById("book-container");
 let addBookButton = document.getElementById("add-book");
@@ -116,15 +117,9 @@ function addBookToLibrary(){
 
 
         }
-       
+
+
     }
-
-
-    /*while(titleValue == " " || authorValue == "" || Number.isInteger(pageValue)){
-    
-    }*/
-
-    
    
     //reset the form data for the next book
     document.getElementById("title").value = "";
@@ -137,7 +132,6 @@ function addBookToLibrary(){
     return;
 }
 
-    
 
 
 addBookButton.addEventListener("click", makeFormVisible);
@@ -145,6 +139,6 @@ addBookButton.addEventListener("click", makeFormVisible);
     if()
     else{
         addBookToLibrary
-    }
-});*/
-submit.addEventListener("click",addBookToLibrary)
+    }*/
+
+submit.addEventListener("click",addBookToLibrary);

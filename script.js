@@ -36,22 +36,19 @@ function makeFormVisible(){
     
 }
 
-//on click of the add book to library button inside of the HTML form, trigger the addBookToLibrary function
-    // ^^ eventListenener(onsubmit){ function addBookToLibrary(){}}
 
  
 function addBookToLibrary(){
-    //target the inputs of the addBookButton
-    //put the inputs of the addBookButton into an object/
-    //push that object into the myLibrary variable
     let titleValue = document.getElementById("title").value;
     let authorValue = document.getElementById("author").value;
     let pageValue = document.getElementById("pages").value;
-    let newObject = {  //may need to target the value attribute or the input html instead of the id...check later
+    let readValue = document.getElementById("did-you-read-it").value;
+    let newObject = {  
         Title: titleValue,
         Author: authorValue,
-        Pages: pageValue
-        //read : document.getElementById("did-you-read-it").value
+        Pages: pageValue + " " + "Pages",
+        Read: readValue
+
     }
     myLibrary.push(newObject);
     console.log(...myLibrary);
@@ -62,56 +59,60 @@ function addBookToLibrary(){
             console.log("it already exists");
             continue
         }
-        let createBook = document.createElement("div");
-        createBook.setAttribute("class", "created-book");
-        createBook.setAttribute("id", `book-${i}`);
-        bookContainer.appendChild(createBook);
+
+        else {
+            let createBook = document.createElement("div");
+            createBook.setAttribute("class", "created-book-container");
+            createBook.setAttribute("id", `book-${i}`);
+            
+            for(let property in myLibrary[i]){
+                if(property == "Read"){
+                    let readButton = document.createElement("button");
+                    readButton.innerHTML = myLibrary[i][property]=="Yes"? "Book Read!" : "Not Read";
+                    readButton.setAttribute("class", "book-data read-button");
+                    readButton.setAttribute("id", `read-button-${i}`)
+                    createBook.appendChild(readButton)
+                   
+                }
+    
+                else {
+                    let bookData = document.createElement("p")
+                    bookData.innerHTML = myLibrary[i][property];
+                    bookData.setAttribute("class", "book-data");
+                    createBook.appendChild(bookData);
+                }
+                
+            }
+            
+    
+            bookContainer.appendChild(createBook);
+            
+
+            document.getElementById(`read-button-${i}`).addEventListener("click", ()=>{
+                let currentReadButton = document.getElementById(`read-button-${i}`);
+                if(currentReadButton.innerHTML == "Book Read!"){
+                    currentReadButton.innerHTML = "Not Read";
+                }
+                else{
+                    currentReadButton.innerHTML = "Book Read!";
+                }
+            })
+
+
+        }
+       
     }
 
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
     document.getElementById("pages").value = ""
 
+    
     makeFormVisible();
     return;
 }
 
-    //Create a for loop to loop through each index of the myLibrary
-    /*for(let i = 0; i<myLibrary.length; i++){
-        //create a div for each index of the myLibrary variable to represent each book (will need to remove or check if book exists already!)
-        //attach to dom under the "book-container" id
-        if(document.getElementById(`book-${i}`)){
-
-            continue;
-            
-        }
-        
-        else{
-            let createBook = document.createElement("div")
-            createBook.setAttribute("class", "created-book")
-            createBook.setAttribute("id", `book-${i}`)
-            //set class to created book which adds the stylings below 
-                //flex box 
-                //create gap for flexbox reat
-            for(let property in myLibrary[i]){
-              let bookData = document.createElement("p");
-              bookData.innerHTML = myLibrary[i][property]
-              createBook.appendChild(bookData)
-            }
-
-            bookContainer.appendChild(createBook);
-            //Column items for flex box 
-                //title
-                //author
-                //pages
-                //read
-               
-        //}
-  
-       
     
-};     */
-
 
 
 addBookButton.addEventListener("click", makeFormVisible);

@@ -12,25 +12,26 @@
 
      <form id="popup-form">
         <label>Title</label>
-        <input id="title" type="text">
+        <input id="title" type="text" required>
         <br>
 
         <label>Author</label>
-        <input id= "author" type="text">
+        <input id= "author" type="text" required>
         <br>
 
         <label># of Pages</label>
-        <input id= "pages" type="text">
+        <input id= "pages" type="number" min="1" required>
         <br>
 
         <label>Have you read this book?</label> <!-- turn into check box with yes or no answers-->
         
-        <select name="did-you-read-it" id="did-you-read-it">
+        <select name="did-you-read-it" id="did-you-read-it" required>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
           </select>
         <br> 
 
+        <!--Clicking the add book button does not check if the required inputs were filled out. Look back at sign up form validation for code-->
         <button type="button" id="add-book-to-library">Add Book to Library</button>
         <button id="cancel-add-book">Cancel</button>
     </form>

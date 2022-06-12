@@ -20,7 +20,7 @@
         <br>
 
         <label># of Pages</label>
-        <input id= "pages" type="number" min="1" required>
+        <input id= "pages" type="number" min="1" pattern="(\[0-9]+)" required>
         <br>
 
         <label>Have you read this book?</label> <!-- turn into check box with yes or no answers-->
@@ -32,7 +32,7 @@
         <br> 
 
         <!--Clicking the add book button does not check if the required inputs were filled out. Look back at sign up form validation for code-->
-        <button type="button" id="add-book-to-library">Add Book to Library</button>
+        <button type="submit" id="add-book-to-library">Add Book to Library</button>
         <button id="cancel-add-book">Cancel</button>
     </form>
     

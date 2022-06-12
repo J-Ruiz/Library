@@ -1,20 +1,20 @@
+//variables to target specific components 
 let bookContainer = document.getElementById("book-container");
 let addBookButton = document.getElementById("add-book");
 let submit = document.getElementById("add-book-to-library");
 let popupForm = document.getElementById("popup-form");
+
+//storage for all books in the library
 let myLibrary = [];
 
 
+//creates a new book
 function Book(title, author, pages, read){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.info = () => {
-       return `${this.title} by ${this.author}, ${this.pages}, ${this.read}.`;
-    }
+    this.Title = title;
+    this.Author = author;
+    this.Pages = pages;
+    this.Read = read;
 }
-
 
 
 //make form visible when +Add book is clicked 
@@ -37,22 +37,33 @@ function makeFormVisible(){
 }
 
 
- 
+ //complete function to add a book to the library 
 function addBookToLibrary(){
     let titleValue = document.getElementById("title").value;
     let authorValue = document.getElementById("author").value;
     let pageValue = document.getElementById("pages").value;
     let readValue = document.getElementById("did-you-read-it").value;
-    let newObject = {  
-        Title: titleValue,
-        Author: authorValue,
-        Pages: pageValue + " " + "Pages",
-        Read: readValue
 
+    if(titleValue == "" || authorValue == "" || typeof Number(pageValue) == NaN || pageValue == ""){
+        console.log("wrong input buddy")
+        return;
     }
+
+    console.log("line 52 after if")
+    let newObject = new Book(titleValue, authorValue, pageValue, readValue)
+
     myLibrary.push(newObject);
-    console.log(...myLibrary);
- 
+    console.log("line 56 after creating and pushing newObject")
+    console.log("line 57 : MyLibrary", ...myLibrary)
+
+    //for loop to check if book exists. 
+        //if it exists, move on to the next index
+        //else 
+            //create the book and class/id it 
+            //next go through each property of the user inputted book
+                //if the property is read, turn it into a button 
+                //else attach it as a paragraph 
+    
     for(let i = 0; i<myLibrary.length; i++){
         console.log("in the for loop");
         if(document.getElementById(`book-${i}`)){
@@ -84,10 +95,13 @@ function addBookToLibrary(){
                 
             }
             
-    
+            
+        
+            //append the completed book to the book container 
             bookContainer.appendChild(createBook);
             
 
+            //add an event listener to the read button on the book to flip between read and not read 
             document.getElementById(`read-button-${i}`).addEventListener("click", ()=>{
                 let currentReadButton = document.getElementById(`read-button-${i}`);
                 if(currentReadButton.innerHTML == "Book Read!"){
@@ -103,10 +117,19 @@ function addBookToLibrary(){
        
     }
 
+
+    /*while(titleValue == " " || authorValue == "" || Number.isInteger(pageValue)){
+    
+    }*/
+
+    
+   
+    //reset the form data for the next book
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
     document.getElementById("pages").value = ""
 
+    //hide the form after book is added
     
     makeFormVisible();
     return;
@@ -116,5 +139,10 @@ function addBookToLibrary(){
 
 
 addBookButton.addEventListener("click", makeFormVisible);
-submit.addEventListener("click", addBookToLibrary);
-//addBookButton.addEventListener("click",console.log("fuck you"))
+/*submit.addEventListener("click", ()=>{
+    if()
+    else{
+        addBookToLibrary
+    }
+});*/
+submit.addEventListener("click",addBookToLibrary)

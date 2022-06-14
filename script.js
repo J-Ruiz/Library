@@ -4,6 +4,7 @@ let bookContainer = document.getElementById("book-container");
 let addBookButton = document.getElementById("add-book");
 let submit = document.getElementById("add-book-to-library");
 let popupForm = document.getElementById("popup-form");
+let copyMaker = 0;
 
 //storage for all books in the library
 let myLibrary = [];
@@ -20,6 +21,8 @@ function Book(title, author, pages, read){
 
 //make form visible when +Add book is clicked 
 function makeFormVisible(){ 
+
+    console.log("in here")
 
     if(popupForm.style.visibility == "visible"){
         popupForm.style.visibility = "hidden";
@@ -46,80 +49,130 @@ function addBookToLibrary(){
     let readValue = document.getElementById("did-you-read-it").value;
 
     if(titleValue == "" || authorValue == "" || typeof Number(pageValue) == NaN || pageValue == ""){
-        console.log("wrong input buddy")
         return;
     }
 
-    //test comment 
-
-    console.log("line 52 after if")
     let newObject = new Book(titleValue, authorValue, pageValue, readValue)
 
-    myLibrary.push(newObject);
-    console.log("line 56 after creating and pushing newObject")
-    console.log("line 57 : MyLibrary", ...myLibrary)
 
-    //for loop to check if book exists. 
-        //if it exists, move on to the next index
-        //else 
-            //create the book and class/id it 
-            //next go through each property of the user inputted book
-                //if the property is read, turn it into a button 
-                //else attach it as a paragraph 
     
+    console.log("here is the new book", newObject)
+    //need to change this to a different place 
+  
+    //ISSUE : Pushing the book immediately before the for loop...what if its a duplicate copy and not wanted...it gets store and continued and held 
+            //within my Library. this is a problem!
+
+     myLibrary.push(newObject);
+
+
     for(let i = 0; i<myLibrary.length; i++){
-        console.log("in the for loop");
-        if(document.getElementById(`book-${i}`)){
-            console.log("it already exists");
-            continue
+        console.log("current length of my Library",myLibrary.length)
+        console.log("in the for loop: This is my current library ", myLibrary)
+        console.log("this is the current index", i);
+         
+
+        if(document.getElementById(`${myLibrary[i].Title}`)){
+            if(titleValue==myLibrary[i].Title){
+                console.log("YES IVE SUCCESSFULLY TARGETED WHAT I NEED!")
+                titleValue= titleValue + `${copyMaker}`;
+                copyMaker++;
+                createABookDiv();
+                continue;
+            }
+
+            continue;
+
         }
 
         else {
+            console.log("in the else statement, time to create a book")
+            createABookDiv();   
+            
+        }
+
+        function createABookDiv(){
+            
+            console.log("made it in create a book div")
             let createBook = document.createElement("div");
             createBook.setAttribute("class", "created-book-container");
-            createBook.setAttribute("id", `book-${i}`);
-            
+            createBook.setAttribute("id", `${titleValue}`);
+            bookContainer.appendChild(createBook);
+
+            let currentBook = document.getElementById(`${titleValue}`);
+
+            console.log("this is the current book appended before properties added", currentBook)
+
             for(let property in myLibrary[i]){
-                if(property == "Read"){
+                function addRemoveBookButton(){
+                    let removeBookButton = document.createElement("button");
+                    removeBookButton.innerHTML = "Remove Book"
+                    removeBookButton.setAttribute("class", "book-data")
+                    removeBookButton.setAttribute("id", `remove-${titleValue}`)
+                    removeBookButton.setAttribute("style", "background-color:red")
+                    createBook.appendChild(removeBookButton)
+                    let targetRemoveBookButton = document.getElementById(`remove-${titleValue}`)
+                    targetRemoveBookButton.addEventListener("click", ()=>{
+                        document.getElementById(`${titleValue}`).remove();
+                        for(let j = 0; j<myLibrary.length; j++){
+                            if(myLibrary[j].Title == titleValue){
+                                myLibrary.splice(j,1);
+                            }
+                        }
+                    })
+                }
+        
+                function addReadButton(){
                     let readButton = document.createElement("button");
                     readButton.innerHTML = myLibrary[i][property]=="Yes"? "Book Read!" : "Not Read";
                     readButton.setAttribute("class", "book-data read-button");
-                    readButton.setAttribute("id", `read-button-${i}`)
+                    readButton.setAttribute("id", `read-button-${titleValue}`)
                     createBook.appendChild(readButton)
-                   
-                }
-    
-                else {
+
+                    let targetReadButton = document.getElementById(`read-button-${titleValue}`);
+                    targetReadButton.addEventListener("click", ()=>{
+            
+                            if(targetReadButton.innerHTML == "Book Read!"){
+                                targetReadButton.innerHTML = "Not Read";
+                                targetReadButton.setAttribute("style", "backround-color: orange")
+                                currentBook.Read="No";
+            
+                            }
+                            else{
+                                targetReadButton.innerHTML = "Book Read!";
+                                targetReadButton.setAttribute("style", "backround-color: green")
+                                currentBook.Read="Yes"
+                            }
+                        })
+                };
+
+                function addBookData(){
                     let bookData = document.createElement("p")
                     bookData.innerHTML = myLibrary[i][property];
                     bookData.setAttribute("class", "book-data");
                     createBook.appendChild(bookData);
-                }
+                };
+
+            if(property == "Read"){
+                addReadButton();
+                addRemoveBookButton();
                 
             }
-            
-            
-        
-            //append the completed book to the book container 
-            bookContainer.appendChild(createBook);
-            
 
-            //add an event listener to the read button on the book to flip between read and not read 
-            document.getElementById(`read-button-${i}`).addEventListener("click", ()=>{
-                let currentReadButton = document.getElementById(`read-button-${i}`);
-                if(currentReadButton.innerHTML == "Book Read!"){
-                    currentReadButton.innerHTML = "Not Read";
-                }
-                else{
-                    currentReadButton.innerHTML = "Book Read!";
-                }
-            })
-
-
+            else {
+                addBookData();
+            }
         }
 
+        
+
+        
+        
 
     }
+    
+    }
+
+    
    
     //reset the form data for the next book
     document.getElementById("title").value = "";
@@ -135,10 +188,4 @@ function addBookToLibrary(){
 
 
 addBookButton.addEventListener("click", makeFormVisible);
-/*submit.addEventListener("click", ()=>{
-    if()
-    else{
-        addBookToLibrary
-    }*/
-
 submit.addEventListener("click",addBookToLibrary);

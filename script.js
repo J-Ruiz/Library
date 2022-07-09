@@ -10,14 +10,26 @@ let copyMaker = 0;
 let myLibrary = [];
 
 
-//creates a new book
+
+// creates new book
+class Book {
+    constructor(title,author,pages,read){
+        this.Title = title;
+        this.Author = author;
+        this.Pages = pages;
+        this.Read = read;
+    }
+}
+
+
+/*creates a new book
 function Book(title, author, pages, read){
     this.Title = title;
     this.Author = author;
     this.Pages = pages;
     this.Read = read;
 }
-
+*/
 
 //make form visible when +Add book is clicked 
 function makeFormVisible(){ 
